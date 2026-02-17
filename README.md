@@ -1,5 +1,25 @@
-# Odoo Quality Management System
-Odoo addon for ISO 9001 Quality Management System. This is a simplified and customized version based on some models used in the management system modules by Odoo Community Association available at https://github.com/OCA/management-system/.
+# Odoo Quality Management System (ISO 9001)
+
+Application web basée sur Odoo pour gérer et piloter un Système de Management de la Qualité (SMQ) ISO 9001.
+
+## Contenu
+
+- Addon Odoo `qms` (modèles, vues, données de base)
+- Stack Docker Compose (Odoo 14 + PostgreSQL)
+- Guide d'installation et d'exploitation sous Windows 11
+
+## Démarrage rapide
+
+```bash
+cp .env.example .env
+docker compose up -d
+```
+
+Puis ouvrez `http://localhost:8069`, créez votre base et installez l'application **Quality Management System**.
+
+## Documentation
+
+- Mode opératoire complet Windows 11 : [`docs/INSTALLATION_WINDOWS11.md`](docs/INSTALLATION_WINDOWS11.md)
 
 ## License
 

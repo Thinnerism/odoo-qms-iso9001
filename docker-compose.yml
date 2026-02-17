@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:13
+    container_name: odoo_qms_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-odoo} -d ${POSTGRES_DB:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    image: odoo:14
+    container_name: odoo_qms_web
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${ODOO_PORT:-8069}:8069"
+    environment:
+      HOST: db
+      USER: ${POSTGRES_USER:-odoo}
+      PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./qms:/mnt/extra-addons/qms
+      - ./config/odoo.conf:/etc/odoo/odoo.conf
+
+volumes:
+  db_data:
+  odoo_data:
